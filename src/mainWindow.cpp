@@ -1,30 +1,34 @@
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
+#include "mainWindow.h"
 #include <iostream>
-
-int main()
-{
+MainWindow::MainWindow(int wight, int height, std::string title) {
   glfwInit();
   glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
   glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
   glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-  GLFWwindow *window = glfwCreateWindow(800, 600, "LearnOpenGL", NULL, NULL);
-  if (window == NULL)
+  _wight = wight;
+  _height = height;
+  _title = title;
+}
+
+int MainWindow::CheckErrorAndRun() {
+  _window = glfwCreateWindow(_wight, _height, _title.c_str(), NULL, NULL);
+  if (_window == NULL)
   {
     std::cout << "Failed to create GLFW window" << std::endl;
     glfwTerminate();
     return -1;
   }
-  glfwMakeContextCurrent(window);
+  glfwMakeContextCurrent(_window);
   if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
   {
     std::cout << "Failed to initialize GLAD" << std::endl;
     return -1;
   }
-  while (!glfwWindowShouldClose(window))
+  while (!glfwWindowShouldClose(_window))
   {
-    glfwSwapBuffers(window);
+    glfwSwapBuffers(_window);
     glfwPollEvents();
   }
+  glfwTerminate();
   return 0;
 }
