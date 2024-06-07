@@ -55,18 +55,20 @@ find_package(glad REQUIRED)
 find_package(glfw3 REQUIRED)
 find_package(glm REQUIRED)
 find_package(imgui REQUIRED)
+find_package(assimp REQUIRED)
 # Вручную добавить пути включения (если необходимо)
 include_directories(${glad_INCLUDE_DIRS})
 include_directories(${glfw3_INCLUDE_DIRS})
 include_directories(${glm_INCLUDE_DIRS})
 include_directories(${imgui_INCLUDE_DIRS})
+include_directories(${assimp_INCLUDE_DIRS})
 # Создаем исполняемый файл
 add_executable(${PROJECT_NAME} src/main.cpp 
-  src/imgui_impl_glfw.cpp 
-  src/imgui_impl_opengl3.cpp
-  src/imgui_impl_opengl3_loader.h
-  src/imgui_impl_glfw.h
-  src/imgui_impl_opengl3.h)
+  src/imgui/imgui_impl_glfw.cpp 
+  src/imgui/imgui_impl_opengl3.cpp
+  src/imgui/imgui_impl_opengl3_loader.h
+  src/imgui/imgui_impl_glfw.h
+  src/imgui/imgui_impl_opengl3.h)
 
 # Связываем библиотеки с исполняемым файлом
-target_link_libraries(${PROJECT_NAME} glad::glad glfw imgui::imgui glm::glm)
+target_link_libraries(${PROJECT_NAME} glad::glad glfw imgui::imgui glm::glm assimp::assimp)

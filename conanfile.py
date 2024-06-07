@@ -11,7 +11,8 @@ class MyProjectConan(ConanFile):
         "glad/0.1.36",
         "glfw/3.4",
         "glm/1.0.1",
-        "imgui/1.89.4"
+        "imgui/1.89.4",
+        "assimp/5.4.1"
     )
   
     
