@@ -4,7 +4,7 @@
 
 unsigned int Shader::ID()
 {
-    return programID;
+    return _programID;
 }
 
 Shader::Shader(const char *vertexPath, const char *fragmentPath)
@@ -53,11 +53,11 @@ Shader::Shader(const char *vertexPath, const char *fragmentPath)
     glCompileShader(fragment);
     checkCompileErrors(fragment, "FRAGMENT");
 
-    programID = glCreateProgram();
-    glAttachShader(programID, vertex);
-    glAttachShader(programID, fragment);
-    glLinkProgram(programID);
-    checkCompileErrors(programID, "PROGRAM");
+    _programID = glCreateProgram();
+    glAttachShader(_programID, vertex);
+    glAttachShader(_programID, fragment);
+    glLinkProgram(_programID);
+    checkCompileErrors(_programID, "PROGRAM");
 
     glDeleteShader(vertex);
     glDeleteShader(fragment);
@@ -65,27 +65,27 @@ Shader::Shader(const char *vertexPath, const char *fragmentPath)
 
 Shader::~Shader()
 {
-    glDeleteProgram(programID);
+    glDeleteProgram(_programID);
 }
 
 void Shader::use()
 {
-    glUseProgram(programID);
+    glUseProgram(_programID);
 }
 
 void Shader::setBool(const std::string &name, bool value) const
 {
-    glUniform1i(glGetUniformLocation(programID, name.c_str()), (int)value);
+    glUniform1i(glGetUniformLocation(_programID, name.c_str()), (int)value);
 }
 
 void Shader::setInt(const std::string &name, int value) const
 {
-    glUniform1i(glGetUniformLocation(programID, name.c_str()), value);
+    glUniform1i(glGetUniformLocation(_programID, name.c_str()), value);
 }
 
 void Shader::setFloat(const std::string &name, float value) const
 {
-    glUniform1f(glGetUniformLocation(programID, name.c_str()), value);
+    glUniform1f(glGetUniformLocation(_programID, name.c_str()), value);
 }
 
 void Shader::setFloatVec(const std::string &name, float *vec, int vec_size) const
@@ -93,16 +93,16 @@ void Shader::setFloatVec(const std::string &name, float *vec, int vec_size) cons
     switch (vec_size)
     {
     case 1:
-        glUniform1f(glGetUniformLocation(programID, name.c_str()), vec[0]);
+        glUniform1f(glGetUniformLocation(_programID, name.c_str()), vec[0]);
         break;
     case 2:
-        glUniform2f(glGetUniformLocation(programID, name.c_str()), vec[0], vec[1]);
+        glUniform2f(glGetUniformLocation(_programID, name.c_str()), vec[0], vec[1]);
         break;
     case 3:
-        glUniform3f(glGetUniformLocation(programID, name.c_str()), vec[0], vec[1], vec[2]);
+        glUniform3f(glGetUniformLocation(_programID, name.c_str()), vec[0], vec[1], vec[2]);
         break;
     case 4:
-        glUniform4f(glGetUniformLocation(programID, name.c_str()), vec[0], vec[1], vec[2], vec[3]);
+        glUniform4f(glGetUniformLocation(_programID, name.c_str()), vec[0], vec[1], vec[2], vec[3]);
         break;
     default:
         std::cout << "SHADER FAILURE! NO SUCH UNIFORM VECTOR SIZE!" << std::endl;
@@ -111,17 +111,17 @@ void Shader::setFloatVec(const std::string &name, float *vec, int vec_size) cons
 
 void Shader::setVec3(const std::string &name, glm::vec3 vec) const
 {
-    glUniform3f(glGetUniformLocation(programID, name.c_str()), vec[0], vec[1], vec[2]);
+    glUniform3f(glGetUniformLocation(_programID, name.c_str()), vec[0], vec[1], vec[2]);
 }
 
 void Shader::setVec4(const std::string &name, glm::vec4 vec) const
 {
-    glUniform4f(glGetUniformLocation(programID, name.c_str()), vec[0], vec[1], vec[2], vec[3]);
+    glUniform4f(glGetUniformLocation(_programID, name.c_str()), vec[0], vec[1], vec[2], vec[3]);
 }
 
 void Shader::setMatrix4F(const std::string &name, glm::mat4 &m)
 {
-    glUniformMatrix4fv(glGetUniformLocation(programID, name.c_str()), 1, GL_FALSE, glm::value_ptr(m));
+    glUniformMatrix4fv(glGetUniformLocation(_programID, name.c_str()), 1, GL_FALSE, glm::value_ptr(m));
 }
 
 void Shader::checkCompileErrors(unsigned int shader, std::string type)

@@ -25,7 +25,7 @@ public:
     unsigned int ID();
 
 private:
-    unsigned int programID;
+    unsigned int _programID;
     void checkCompileErrors(unsigned int shader, std::string type);
 };
 #endif

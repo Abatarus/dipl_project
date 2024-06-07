@@ -40,7 +40,7 @@ public:
     void Draw(Shader *shader);
 
 private:
-    unsigned int VBO, EBO;
+    unsigned int _VBO, _EBO;
 
     void setupMesh();
 };
