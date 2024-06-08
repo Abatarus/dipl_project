@@ -1,4 +1,4 @@
-#include "mainWindow.h"
+#include "headers/mainWindow.h"
 
 #include <iostream>
 

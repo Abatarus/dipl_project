@@ -1,4 +1,4 @@
-#include "camera.h"
+#include "headers/camera.h"
 
 Camera::Camera(glm::vec3 position,
                glm::vec3 up,

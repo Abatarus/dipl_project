@@ -55,6 +55,7 @@ int main()
     // Инициализация Dear ImGui
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
+
     ImGuiIO &io = ImGui::GetIO();
     ImGui::StyleColorsDark();
     ImGui_ImplGlfw_InitForOpenGL(window, true);
@@ -73,9 +74,9 @@ int main()
         ImGui::NewFrame();
         //
         //// Окно ImGui
-        // ImGui::Begin("Hello, world!");
-        // ImGui::Text("This is some useful text.");
-        // ImGui::End();
+        ImGui::Begin("Hello, world!");
+        ImGui::Text("This is some useful text.");
+        ImGui::End();
 
         // Рендеринг ImGui
         ImGui::Render();

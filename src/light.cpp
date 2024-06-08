@@ -1,4 +1,4 @@
-#include "light.h"
+#include "headers/light.h"
 
 static const Light NoneLight = {
     "NONE",             // name

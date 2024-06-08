@@ -45,7 +45,7 @@
 cmake_minimum_required(VERSION 3.15)
 project(my_project)
 
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 17)
 
 # Подключение Conan toolchain
 include(${CMAKE_BINARY_DIR}/generators/conan_toolchain.cmake)
@@ -62,13 +62,34 @@ include_directories(${glfw3_INCLUDE_DIRS})
 include_directories(${glm_INCLUDE_DIRS})
 include_directories(${imgui_INCLUDE_DIRS})
 include_directories(${assimp_INCLUDE_DIRS})
+
+list(APPEND SRC_INCLUDE_FILES 
+    src/headers/camera.h 
+    src/headers/light.h
+    src/headers/mainWindow.h
+    src/headers/mesh.h
+    src/headers/model.h
+    src/headers/shader.h
+    src/headers/stb_image.h)
+
+list(APPEND SRC_IMGUI_FILES 
+    src/imgui/imgui_impl_glfw.cpp 
+    src/imgui/imgui_impl_opengl3.cpp
+    src/imgui/imgui_impl_opengl3_loader.h
+    src/imgui/imgui_impl_glfw.h
+    src/imgui/imgui_impl_opengl3.h)
+
+list(APPEND SRC_FILES 
+    src/main.cpp 
+    src/camera.cpp 
+    src/light.cpp
+    src/mainWindow.cpp
+    src/shader.cpp
+    src/mesh.cpp
+    src/model.cpp)
+
 # Создаем исполняемый файл
-add_executable(${PROJECT_NAME} src/main.cpp 
-  src/imgui/imgui_impl_glfw.cpp 
-  src/imgui/imgui_impl_opengl3.cpp
-  src/imgui/imgui_impl_opengl3_loader.h
-  src/imgui/imgui_impl_glfw.h
-  src/imgui/imgui_impl_opengl3.h)
+add_executable(${PROJECT_NAME} ${SRC_INCLUDE_FILES} ${SRC_IMGUI_FILES} ${SRC_FILES})
 
 # Связываем библиотеки с исполняемым файлом
 target_link_libraries(${PROJECT_NAME} glad::glad glfw imgui::imgui glm::glm assimp::assimp)
